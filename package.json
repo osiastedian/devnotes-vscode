@@ -2,6 +2,7 @@
   "name": "devnotes",
   "displayName": "devnotes",
   "description": "Note taking by developers for developers",
+  "license": "MIT",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.54.0"
@@ -14,8 +15,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "devnotes.helloWorld",
-        "title": "Hello World"
+        "command": "devnotes.addNotes",
+        "title": "DevNotes: Add Notes"
       }
     ]
   },
