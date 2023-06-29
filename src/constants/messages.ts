@@ -2,6 +2,9 @@
 export const messages = {
   addNotes: {
     noteName: "NoteName",
-    successMessage: "DevNotes: Created notes for <noteName>",
+    noteNameCreateNewNote: "Create a new note",
+    noteNameInputPlaceholder: "Enter note name",
+    successMessage: "DevNotes: Addeds notes for <noteName>",
+    noteContentInputTitle: "Description",
   },
 };

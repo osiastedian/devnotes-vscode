@@ -10,15 +10,15 @@ export function activate(context: vscode.ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
 
-  const commands = getCommands(context);
-
   const stateManager = new StateManager(context);
+  const commands = getCommands(context, stateManager);
 
   const disposables = commands.map((command) =>
-    vscode.commands.registerCommand(command.identifier, (...runArgs) => {
+    vscode.commands.registerCommand(command.identifier, async (...runArgs) => {
       if (!stateManager.checkStateValidity()) {
         return;
       }
+      await stateManager.loadAppState();
       return command.run(...runArgs);
     })
   );

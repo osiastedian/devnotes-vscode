@@ -6,7 +6,7 @@ interface File {
   path: string;
 }
 
-export const NEW_NOTE = "Create a new note";
+const NEW_NOTE = messages.addNotes.noteNameCreateNewNote;
 
 export class AddNotes extends Command<File> {
   identifier = DevNotesCommands.addNotes;
@@ -19,7 +19,7 @@ export class AddNotes extends Command<File> {
   }
 
   #getExistingNotes(): Thenable<string[]> {
-    return Promise.resolve(["BRAND-1743 Abcd was here"]);
+    return Promise.resolve(this.stateManager.notesManager?.getList() ?? []);
   }
 
   async #retrieveNoteList(): Promise<string | undefined> {
@@ -27,25 +27,54 @@ export class AddNotes extends Command<File> {
     return await vscode.window.showQuickPick([NEW_NOTE, ...notes]);
   }
 
-  run(file: File): void {
-    const runAsync = async () => {
+  run(file?: File): void {
+    const getNoteName = async () => {
       const selected = await this.#retrieveNoteList();
       if (selected === null) {
         return null;
       }
       if (selected === NEW_NOTE) {
-        return this.#retrieveNewNoteName(file.path);
+        const fileName = file?.path.split("/").pop();
+        return this.#retrieveNewNoteName(
+          fileName ?? messages.addNotes.noteNameInputPlaceholder
+        );
       }
       return selected;
     };
 
-    runAsync().then((noteName) => {
-      if (!noteName) {
-        return;
-      }
-      vscode.window.showInformationMessage(
-        messages.addNotes.successMessage.replace("<noteName>", noteName)
-      );
-    });
+    const getNoteContent = async () => {
+      const content = await vscode.window.showInputBox({
+        title: messages.addNotes.noteContentInputTitle,
+      });
+      return content ?? "";
+    };
+
+    const retrieveParams = async () => {
+      const noteName = await getNoteName();
+      const noteContent = await getNoteContent();
+      return [noteName, noteContent];
+    };
+
+    retrieveParams()
+      .then(([noteName, noteContent]) => {
+        if (!noteName || !this.stateManager.notesManager) {
+          return;
+        }
+
+        const notesManager = this.stateManager.notesManager;
+        const content = `## ${new Date().toLocaleString()}\n${noteContent}\n`;
+
+        if (notesManager.exists(noteName)) {
+          notesManager.updateNote(noteName, content, false);
+        } else {
+          notesManager.add(noteName, content);
+        }
+        vscode.window.showInformationMessage(
+          messages.addNotes.successMessage.replace("<noteName>", noteName)
+        );
+      })
+      .catch((error) => {
+        vscode.window.showErrorMessage(error.message);
+      });
   }
 }

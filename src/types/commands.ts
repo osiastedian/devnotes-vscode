@@ -1,4 +1,5 @@
 import { ExtensionContext } from "vscode";
+import StateManager from "../utils/state-manager";
 
 export interface ICommand {
   identifier: DevNotesCommands;
@@ -13,7 +14,10 @@ export abstract class Command<R = string, S = string, T = string>
   abstract run(arg1: R, arg2: S): void;
   abstract run(arg1: R, arg2: S, arg3: T): void;
 
-  constructor(protected context: ExtensionContext) {}
+  constructor(
+    protected context: ExtensionContext,
+    protected stateManager: StateManager
+  ) {}
 }
 
 export enum DevNotesCommands {
