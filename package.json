@@ -17,6 +17,14 @@
       {
         "command": "devnotes.addNotes",
         "title": "DevNotes: Add Notes"
+      },
+      {
+        "command": "devnotes.setGlobalStoragePath",
+        "title": "DevNotes: Set Global Storage Path"
+      },
+      {
+        "command": "devnotes.setWorkspaceStoragePath",
+        "title": "DevNotes: Set Workspace Storage Path"
       }
     ],
     "menus": {

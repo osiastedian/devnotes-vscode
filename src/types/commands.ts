@@ -18,4 +18,6 @@ export abstract class Command<R = string, S = string, T = string>
 
 export enum DevNotesCommands {
   "addNotes" = "devnotes.addNotes",
+  "setGlobalStoragePath" = "devnotes.setGlobalStoragePath",
+  "setWorkspaceStoragePath" = "devnotes.setWorkspaceStoragePath",
 }
