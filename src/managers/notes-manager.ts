@@ -1,22 +1,24 @@
 import { Uri, workspace } from "vscode";
+import { Note, NotesDirectory } from "../types/notes";
 
 export interface NotesManagerListener {
-  onSaveNotes: (notes: Record<string, string>) => void;
+  onSaveNotes: (notes: NotesDirectory) => void;
 }
 
 export class NotesManager {
   listeners: NotesManagerListener[] = [];
-  constructor(
-    private notes: Record<string, string>,
-    private basePath: string
-  ) {}
+  constructor(private notes: NotesDirectory, private basePath: string) {}
 
-  getList(): string[] {
+  getNames(): string[] {
     return Object.keys(this.notes);
   }
 
+  getNotes(): Note[] {
+    return Object.values(this.notes);
+  }
+
   getPath(noteName: string): string {
-    return this.notes[noteName];
+    return this.notes[noteName].path;
   }
 
   exists(noteName: string): boolean {
@@ -27,7 +29,7 @@ export class NotesManager {
     if (!this.exists(noteName)) {
       throw new Error(`Note ${noteName} does not exist`);
     }
-    const notePath = this.notes[noteName];
+    const notePath = this.notes[noteName].path;
     let toSaveContent = content;
     if (!replace) {
       const decoder = new TextDecoder("utf-8");
@@ -38,6 +40,7 @@ export class NotesManager {
     }
     const contentAsUnit8Array = new TextEncoder().encode(toSaveContent);
     await workspace.fs.writeFile(Uri.file(notePath), contentAsUnit8Array);
+    this.notes[noteName].lastUpdated = Date.now();
     this.listeners.forEach((listener) => listener.onSaveNotes(this.notes));
     return notePath;
   }
@@ -50,7 +53,11 @@ export class NotesManager {
     const contentWithHeader = `# ${noteName}\n` + content;
     const contentAsUnit8Array = new TextEncoder().encode(contentWithHeader);
     await workspace.fs.writeFile(Uri.file(notePath), contentAsUnit8Array);
-    this.notes[noteName] = notePath;
+    this.notes[noteName] = {
+      name: noteName,
+      path: notePath,
+      lastUpdated: Date.now(),
+    };
     this.listeners.forEach((listener) => listener.onSaveNotes(this.notes));
     return notePath;
   }

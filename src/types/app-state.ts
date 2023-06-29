@@ -1,9 +1,9 @@
+import { NotesDirectory } from "./notes";
+
 export interface AppState {
   lastUpdated?: number;
-  notes: Record<string, string>;
+  notes: NotesDirectory;
 }
-
-
 
 export const DEFAULT_APP_STATE: AppState = {
   notes: {},

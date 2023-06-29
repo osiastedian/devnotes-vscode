@@ -1,13 +1,14 @@
 import { ExtensionContext, Uri, window, workspace } from "vscode";
 import { AppState, DEFAULT_APP_STATE } from "../types/app-state";
 import { NotesManager, NotesManagerListener } from "./notes-manager";
+import { NotesDirectory } from "../types/notes";
 
 const STATE_STORAGE_PATH_KEY = "storagePath";
 
 export class StateNotesManagerListener implements NotesManagerListener {
   constructor(private stateManager: StateManager) {}
 
-  onSaveNotes(notes: Record<string, string>): void {
+  onSaveNotes(notes: NotesDirectory): void {
     this.stateManager.updateAppState({ notes });
   }
 }

@@ -15,6 +15,10 @@
   "contributes": {
     "commands": [
       {
+        "command": "devnotes.activate",
+        "title": "DevNotes: Activate"
+      },
+      {
         "command": "devnotes.addNotes",
         "title": "DevNotes: Add Notes"
       },
@@ -33,6 +37,14 @@
           "command": "devnotes.addNotes",
           "group": "z_commands",
           "when": "editorTextFocus"
+        }
+      ]
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "devnotes.notesList",
+          "name": "DevNotes List"
         }
       ]
     }

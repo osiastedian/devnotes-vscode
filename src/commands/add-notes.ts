@@ -19,7 +19,7 @@ export class AddNotes extends Command<File> {
   }
 
   #getExistingNotes(): Thenable<string[]> {
-    return Promise.resolve(this.stateManager.notesManager?.getList() ?? []);
+    return Promise.resolve(this.stateManager.notesManager?.getNames() ?? []);
   }
 
   async #retrieveNoteList(): Promise<string | undefined> {

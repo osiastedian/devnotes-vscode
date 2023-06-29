@@ -1,5 +1,5 @@
 import { ExtensionContext } from "vscode";
-import StateManager from "../utils/state-manager";
+import StateManager from "../managers/state-manager";
 
 export interface ICommand {
   identifier: DevNotesCommands;
@@ -21,6 +21,7 @@ export abstract class Command<R = string, S = string, T = string>
 }
 
 export enum DevNotesCommands {
+  "activate" = "devnotes.activate",
   "addNotes" = "devnotes.addNotes",
   "setGlobalStoragePath" = "devnotes.setGlobalStoragePath",
   "setWorkspaceStoragePath" = "devnotes.setWorkspaceStoragePath",
