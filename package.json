@@ -18,7 +18,16 @@
         "command": "devnotes.addNotes",
         "title": "DevNotes: Add Notes"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "devnotes.addNotes",
+          "group": "z_commands",
+          "when": "editorTextFocus"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "yarn run compile",
