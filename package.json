@@ -7,6 +7,7 @@
     "name": "Ted Ian Osias",
     "email": "ted@ostudio.dev"
   },
+  "publisher": "osiastedian",
   "license": "MIT",
   "version": "0.0.1",
   "engines": {
