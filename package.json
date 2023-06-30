@@ -23,6 +23,14 @@
         "title": "DevNotes: Add Notes"
       },
       {
+        "command": "devnotes.editNote",
+        "title": "Edit Note"
+      },
+      {
+        "command": "devnotes.deleteNote",
+        "title": "Delete Note"
+      },
+      {
         "command": "devnotes.setGlobalStoragePath",
         "title": "DevNotes: Set Global Storage Path"
       },
@@ -37,6 +45,23 @@
           "command": "devnotes.addNotes",
           "group": "z_commands",
           "when": "editorTextFocus"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "devnotes.addNotes",
+          "when": "view == devnotes.notesList"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "devnotes.editNote",
+          "when": "view == devnotes.notesList && viewItem == note",
+          "group": "inline"
+        },
+        {
+          "command": "devnotes.deleteNote",
+          "when": "view == devnotes.notesList && viewItem == note"
         }
       ]
     },

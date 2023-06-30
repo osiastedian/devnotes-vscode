@@ -25,6 +25,11 @@ export class NotesManager {
     return this.notes[noteName] !== undefined;
   }
 
+  remove(noteName: string): void {
+    delete this.notes[noteName];
+    this.listeners.forEach((listener) => listener.onSaveNotes(this.notes));
+  }
+
   async updateNote(noteName: string, content: string, replace = true) {
     if (!this.exists(noteName)) {
       throw new Error(`Note ${noteName} does not exist`);

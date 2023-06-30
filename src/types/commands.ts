@@ -22,6 +22,8 @@ export abstract class Command<R = string, S = string, T = string>
 
 export enum DevNotesCommands {
   "activate" = "devnotes.activate",
+  "edit" = "devnotes.editNote",
+  "delete" = "devnotes.deleteNote",
   "addNotes" = "devnotes.addNotes",
   "setGlobalStoragePath" = "devnotes.setGlobalStoragePath",
   "setWorkspaceStoragePath" = "devnotes.setWorkspaceStoragePath",
