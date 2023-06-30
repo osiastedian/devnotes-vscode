@@ -1,5 +1,7 @@
 import { Uri, workspace } from "vscode";
 import { Note, NotesDirectory } from "../types/notes";
+import { NoteNotFound } from "./errors/note-not-found";
+import { NoteAlreadyExistError } from "./errors/note-already-exist";
 
 export interface NotesManagerListener {
   onSaveNotes: (notes: NotesDirectory) => void;
@@ -32,7 +34,7 @@ export class NotesManager {
 
   async updateNote(noteName: string, content: string, replace = true) {
     if (!this.exists(noteName)) {
-      throw new Error(`Note ${noteName} does not exist`);
+      throw new NoteNotFound(noteName);
     }
     const notePath = this.notes[noteName].path;
     let toSaveContent = content;
@@ -52,7 +54,7 @@ export class NotesManager {
 
   async add(noteName: string, content = ""): Promise<string> {
     if (this.exists(noteName)) {
-      throw new Error(`Note ${noteName} already exists`);
+      throw new NoteAlreadyExistError(noteName);
     }
     const notePath = `${this.basePath}/${noteName}.md`;
     const contentWithHeader = `# ${noteName}\n` + content;

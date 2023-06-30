@@ -16,10 +16,16 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "devnotes.promptSetStoragePath"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "devnotes.promptSetStoragePath",
+        "title": "DevNotes: Prompt Set Storage Path"
+      },
       {
         "command": "devnotes.activate",
         "title": "DevNotes: Activate"

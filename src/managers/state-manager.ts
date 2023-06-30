@@ -2,6 +2,7 @@ import { ExtensionContext, Uri, window, workspace } from "vscode";
 import { AppState, DEFAULT_APP_STATE } from "../types/app-state";
 import { NotesManager, NotesManagerListener } from "./notes-manager";
 import { NotesDirectory } from "../types/notes";
+import { messages } from "../constants/messages";
 
 const STATE_STORAGE_PATH_KEY = "storagePath";
 
@@ -29,7 +30,7 @@ export class StateManager {
     const [{ path }] = value;
     this.context.workspaceState.update(STATE_STORAGE_PATH_KEY, path);
     window.showInformationMessage(
-      `Workspace Storage path set to ${path}. Please reload the window.`
+      messages.stateManager.setWorkspaceStoragePath.replace("<path>", path)
     );
   }
 
@@ -41,7 +42,7 @@ export class StateManager {
     const [{ path }] = value;
     this.context.globalState.update(STATE_STORAGE_PATH_KEY, path);
     window.showInformationMessage(
-      `Global Storage path set to ${path}. Please reload the window.`
+      messages.stateManager.setGlobalStoragePath.replace("<path>", path)
     );
   }
 
@@ -82,7 +83,7 @@ export class StateManager {
   #appStatePath(): string {
     const path = this.getStatePath();
     if (!path) {
-      throw new Error("Storage path not set");
+      throw new Error(messages.stateManager.storagePathNotSet);
     }
     return path + "/app-state.json";
   }
