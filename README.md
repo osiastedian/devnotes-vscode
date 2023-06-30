@@ -28,7 +28,7 @@ To Activate call:
 
 Note: This is my first extension and I am still learning. I am open to any suggestions or feedback.
 
-### 1.0.0
+### 0.0.1
 
 Initial release of DevNotes with basic functionality
 
