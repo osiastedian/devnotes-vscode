@@ -2,6 +2,11 @@
   "name": "devnotes",
   "displayName": "devnotes",
   "description": "Note taking by developers for developers",
+  "repository": "https://github.com/osiastedian/devnotes-vscode",
+  "author": {
+    "name": "Ted Ian Osias",
+    "email": "ted@ostudio.dev"
+  },
   "license": "MIT",
   "version": "0.0.1",
   "engines": {
