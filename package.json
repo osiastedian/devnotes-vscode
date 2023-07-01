@@ -36,11 +36,15 @@
       },
       {
         "command": "devnotes.editNote",
-        "title": "Edit Note"
+        "title": "Edit"
       },
       {
         "command": "devnotes.deleteNote",
-        "title": "Delete Note"
+        "title": "Delete"
+      },
+      {
+        "command": "devnotes.previewNote",
+        "title": "Preview"
       },
       {
         "command": "devnotes.setGlobalStoragePath",
@@ -73,6 +77,10 @@
         },
         {
           "command": "devnotes.deleteNote",
+          "when": "view == devnotes.notesList && viewItem == note"
+        },
+        {
+          "command": "devnotes.previewNote",
           "when": "view == devnotes.notesList && viewItem == note"
         }
       ]

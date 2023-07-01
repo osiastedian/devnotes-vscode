@@ -16,16 +16,6 @@ export class EditNote extends Command<NoteItem | string> {
       });
       window.showTextDocument(Uri.file(path), { preview: true }).then(() => {
         commands.executeCommand("markdown.showLockedPreviewToSide");
-        const uri = Uri.file(path);
-        workspace.fs.readFile(uri).then((buffer) => {
-          const encoder = new TextDecoder();
-          const textContent = encoder.decode(buffer);
-          commands
-            .executeCommand("markdown.api.render", textContent)
-            .then((code) => {
-              console.info("rendered", code);
-            });
-        });
       });
     }
   }

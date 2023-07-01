@@ -25,6 +25,7 @@ export enum DevNotesCommands {
   "edit" = "devnotes.editNote",
   "delete" = "devnotes.deleteNote",
   "addNotes" = "devnotes.addNotes",
+  "preview" = "devnotes.previewNote",
   "setGlobalStoragePath" = "devnotes.setGlobalStoragePath",
   "setWorkspaceStoragePath" = "devnotes.setWorkspaceStoragePath",
 }
